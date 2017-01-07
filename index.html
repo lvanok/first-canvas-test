@@ -16,62 +16,56 @@
 </head>
 
 <body>
-    <p>The HTML5 &lt;canvas&gt; tag is a container for graphics it can't draw things on its own. You need to use JS to do so.</p>
-    <p>The getContext() method returns an object that provides methods and properties for drawing on the canvas.</p>
+    <p>Press the left and right arrow key to make a space invader appear and move back and forth</p>
+    <!-- canvas element -->
     <canvas class="canvas" id="lines" width="500" height="350">
     </canvas>
+    <!-- image to place inside the element -->
     <img src='space-invader.jpg' id='screamImg' style='width: 50px; height: 50px;'>
+    <!-- start of javascript -->
     <script type="text/javascript">
+    //global variables
     var xLocation = 100;
     var c = document.querySelector("#lines");
     var ctx = c.getContext("2d");
     var img = document.createElement('img');
     img.src = 'space-invader.jpg';
 
-
+    //function to 'clear' when you press a key
     function clearCanvas() {
         c.width = c.width;
     }
     //draw a few lines
-    // Step 1: Find the Canvas Element
-    // First of all, you must find the <canvas> element.
+    // function to accept a left or right arrow keypress
     function keyPressHandler(event) {
+        if (event.keyCode !== ('32' || '37' || '39')) {
+            console.log(event.keyCode);
+            return;
+        } else {
+            clearCanvas();
+            var keyPress = event.keyCode;
+            console.log(keyPress);
 
-        clearCanvas();
-        var keyPress = event.keyCode;
-        console.log(keyPress);
+            if (keyPress === 37) {
+                xLocation -= 10;
+                ctx.drawImage(img, xLocation, 300);
+            }
 
-        if (keyPress === 37) {
-        	xLocation -= 50;
-            ctx.drawImage(img, xLocation, 300);
-        }
-
-        if (keyPress === 39) {
-        	xLocation += 50;
-            ctx.drawImage(img, xLocation, 300);
-
+            if (keyPress === 39) {
+                xLocation += 10;
+                ctx.drawImage(img, xLocation, 300);
+            }
         }
     }
 
-    // function drawImg() {
-    //     var c = document.querySelector("#lines");
-    //     //then the rest
-    //     var ctx = c.getContext("2d");
-    //     ctx.moveTo(50, 50); //moves the starting point
-    //     var imgGrab = document.querySelector('#screamImg');
-    //     ctx.drawImage(imgGrab, 10, 10);
-    //     ctx.stroke();
-    // }
-    //  window.addEventListener('load', drawImg);
-
+    //keypress event listener
     window.addEventListener('keydown', keyPressHandler);
 
-
     function later() {
-
-        img.addEventListener("load", function() {
-            ctx.drawImage(img, xLocation, 300);
-        }, false);
+        ctx.drawImage(img, xLocation, 300);
+        // img.addEventListener("load", function() {
+        //     ctx.drawImage(img, xLocation, 300);
+        // }, false);
     };
     // for both image examples
     //load this before the window loads
