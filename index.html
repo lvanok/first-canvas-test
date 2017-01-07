@@ -21,7 +21,7 @@
     <canvas class="canvas" id="lines" width="500" height="350">
     </canvas>
     <!-- image to place inside the element -->
-    <img src='space-invader.jpg' id='screamImg' style='width: 50px; height: 50px;'>
+    <img src='space-invader.jpg' id='screamImg' style='width: 50px; height: 50px; display: none;'>
     <!-- start of javascript -->
     <script type="text/javascript">
     //global variables
@@ -38,14 +38,17 @@
     //draw a few lines
     // function to accept a left or right arrow keypress
     function keyPressHandler(event) {
-        if (event.keyCode !== ('32' || '37' || '39')) {
-            console.log(event.keyCode);
-            return;
-        } else {
+            
             clearCanvas();
             var keyPress = event.keyCode;
             console.log(keyPress);
-
+            if(keyPress === 32){
+                console.log('hey');
+                ctx.moveTo(xLocation + 25, 300);
+                ctx.lineTo(xLocation + 25, 0);
+                ctx.stroke();
+                ctx.drawImage(img, xLocation, 300);
+            }
             if (keyPress === 37) {
                 xLocation -= 10;
                 ctx.drawImage(img, xLocation, 300);
@@ -55,7 +58,7 @@
                 xLocation += 10;
                 ctx.drawImage(img, xLocation, 300);
             }
-        }
+        
     }
 
     //keypress event listener
