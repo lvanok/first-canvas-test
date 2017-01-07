@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style type="text/css">
+    .canvas {
+        border: 1px solid #000000;
+        margin: 50px;
+    }
+    
+    .hide {
+        display: none
+    }
+    </style>
+</head>
+
+<body>
+    <p>The HTML5 &lt;canvas&gt; tag is a container for graphics it can't draw things on its own. You need to use JS to do so.</p>
+    <p>The getContext() method returns an object that provides methods and properties for drawing on the canvas.</p>
+    <canvas class="canvas" id="lines" width="500" height="350">
+    </canvas>
+    <img src='space-invader.jpg' id='screamImg' style='width: 50px; height: 50px;'>
+    <script type="text/javascript">
+    var xLocation = 100;
+    var c = document.querySelector("#lines");
+    var ctx = c.getContext("2d");
+    var img = document.createElement('img');
+    img.src = 'space-invader.jpg';
+
+
+    function clearCanvas() {
+        c.width = c.width;
+    }
+    //draw a few lines
+    // Step 1: Find the Canvas Element
+    // First of all, you must find the <canvas> element.
+    function keyPressHandler(event) {
+
+        clearCanvas();
+        var keyPress = event.keyCode;
+        console.log(keyPress);
+
+        if (keyPress === 37) {
+        	xLocation -= 50;
+            ctx.drawImage(img, xLocation, 300);
+        }
+
+        if (keyPress === 39) {
+        	xLocation += 50;
+            ctx.drawImage(img, xLocation, 300);
+
+        }
+    }
+
+    // function drawImg() {
+    //     var c = document.querySelector("#lines");
+    //     //then the rest
+    //     var ctx = c.getContext("2d");
+    //     ctx.moveTo(50, 50); //moves the starting point
+    //     var imgGrab = document.querySelector('#screamImg');
+    //     ctx.drawImage(imgGrab, 10, 10);
+    //     ctx.stroke();
+    // }
+    //  window.addEventListener('load', drawImg);
+
+    window.addEventListener('keydown', keyPressHandler);
+
+
+    function later() {
+
+        img.addEventListener("load", function() {
+            ctx.drawImage(img, xLocation, 300);
+        }, false);
+    };
+    // for both image examples
+    //load this before the window loads
+    //better than document.onload because it will make sure the images load before the code happens
+    window.onload = function() {
+        var c = document.querySelector("#lines");
+        var ctx = c.getContext("2d");
+        var img = document.createElement('img');
+        img.src = 'space-invader.jpg';
+        later();
+    }
+    </script>
+</body>
+
+</html>
